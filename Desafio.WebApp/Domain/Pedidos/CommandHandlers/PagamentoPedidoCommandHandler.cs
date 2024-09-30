@@ -2,7 +2,7 @@
 using Desafio.WebApp.Domain.Pedidos.Commands;
 using Desafio.WebApp.Domain.Pedidos.Entities;
 using Desafio.WebApp.Domain.Pedidos.Enums;
-using Desafio.WebApp.Domain.Pedidos.Repositories.Contratos;
+using Desafio.WebApp.Domain.Pedidos.Repositories.Contracts;
 using Desafio.WebApp.Domain.Pedidos.Strategy;
 using MediatR;
 

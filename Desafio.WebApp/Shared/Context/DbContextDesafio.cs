@@ -1,4 +1,5 @@
 ﻿using Desafio.WebApp.Domain.Pedidos.Entities;
+using Desafio.WebApp.Domain.Produtos.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Desafio.WebApp.Shared.Context;
@@ -6,7 +7,10 @@ namespace Desafio.WebApp.Shared.Context;
 public class DbContextDesafio : DbContext
 {
     public DbSet<Pedido> Pedidos { get; set; }
+    
     public DbSet<PedidoItem> PedidosItem { get; set; }
+    
+    public DbSet<Produto> Produtos { get; set; }
 
     public DbContextDesafio(DbContextOptions<DbContextDesafio> options)
         : base(options)

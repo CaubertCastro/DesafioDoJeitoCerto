@@ -16,7 +16,7 @@ public class EstoqueController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> FazerPagamento([FromBody] BaixarEstoquePedidoCommand command)
+    public async Task<IActionResult> BaixarEstoqueProduto([FromBody] BaixarEstoquePedidoCommand command)
     {
         var baixarEstoqueResult = await _mediator.Send(command);
 

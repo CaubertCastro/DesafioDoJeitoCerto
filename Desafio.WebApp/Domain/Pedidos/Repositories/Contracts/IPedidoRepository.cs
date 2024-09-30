@@ -1,6 +1,6 @@
 ﻿using Desafio.WebApp.Domain.Pedidos.Entities;
 
-namespace Desafio.WebApp.Domain.Pedidos.Repositories.Contratos;
+namespace Desafio.WebApp.Domain.Pedidos.Repositories.Contracts;
 
 public interface IPedidoRepository
 {

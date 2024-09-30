@@ -1,7 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
 using Desafio.WebApp.Domain.Pedidos.Commands;
 using Desafio.WebApp.Domain.Pedidos.Entities;
-using Desafio.WebApp.Domain.Pedidos.Repositories.Contratos;
+using Desafio.WebApp.Domain.Pedidos.Repositories.Contracts;
 using MediatR;
 
 namespace Desafio.WebApp.Domain.Pedidos.CommandHandlers;
@@ -31,9 +31,9 @@ public class CriarPedidoCommandHandler : IRequestHandler<CriarPedidoCommand, Res
 
         var pedido = pedidoResult.Value;
 
-        foreach (var (quantidade, preco) in pedidoItems)
+        foreach (var (produtoId, quantidade, preco) in pedidoItems)
         {
-            var pedidoItemResult = PedidoItem.CriarPedidoItem(quantidade, preco);
+            var pedidoItemResult = PedidoItem.CriarPedidoItem(produtoId, quantidade, preco);
 
             if (pedidoItemResult.IsFailure)
                 pedidoItemErros.Add(pedidoItemResult.Error);

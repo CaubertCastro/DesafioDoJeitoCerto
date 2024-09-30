@@ -7,12 +7,17 @@ public class PedidoItem : Entidade<int>
 {
     public int PedidoId { get; private set; }
 
+    public int ProdutoId { get; private set; }
+    
     public int Quantidade { get; private set; }
 
     public decimal Preco { get; private set; }
 
-    public static Result<PedidoItem> CriarPedidoItem(int quantidade, decimal preco)
+    public static Result<PedidoItem> CriarPedidoItem(int produtoId, int quantidade, decimal preco)
     {
+        if (produtoId <= 0)
+            return Result.Failure<PedidoItem>("O id do produto não pode ser zero");
+            
         if (quantidade <= 0)
             return Result.Failure<PedidoItem>("A quantidade de produtos deve ser maior que zero");
 
@@ -22,6 +27,7 @@ public class PedidoItem : Entidade<int>
         return Result.Success(
             new PedidoItem
             {
+                ProdutoId = produtoId,
                 Preco = preco,
                 Quantidade = quantidade,
             });

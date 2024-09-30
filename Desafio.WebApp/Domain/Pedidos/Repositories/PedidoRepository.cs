@@ -1,6 +1,7 @@
 ﻿using Desafio.WebApp.Domain.Pedidos.Entities;
-using Desafio.WebApp.Domain.Pedidos.Repositories.Contratos;
+using Desafio.WebApp.Domain.Pedidos.Repositories.Contracts;
 using Desafio.WebApp.Shared.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Desafio.WebApp.Domain.Pedidos.Repositories;
 
@@ -15,9 +16,7 @@ public class PedidoRepository: IPedidoRepository
 
     public async Task<Pedido?> ObterPedido(int pedidoId)
     {
-        var pedido = await _context.Pedidos.FindAsync(pedidoId);
-
-        return pedido;
+        return await _context.Pedidos.AsNoTracking().FirstOrDefaultAsync(p => p.Id == pedidoId);
     }
 
     public Task CancelarPedidoAsync(int pedidoId)
