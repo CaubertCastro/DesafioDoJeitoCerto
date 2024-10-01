@@ -1,6 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
 using Desafio.WebApp.Domain.Pedidos.Enums;
 using Desafio.WebApp.Domain.Pedidos.Events;
+using Desafio.WebApp.Domain.Pedidos.State;
 using Desafio.WebApp.Shared.Core.Entities;
 using Desafio.WebApp.Shared.Core.Events;
 
@@ -16,7 +17,7 @@ public class Pedido : Entidade<int>
 
     public int QtdTotalPedido { get; private set; } = 0;
 
-    public StatusPedido StatusPedido { get; private set; }
+    public IStatusPedido Status { get; private set; }
 
     public PedidoPagamento Pagamento { get; private set; }
 
@@ -27,7 +28,6 @@ public class Pedido : Entidade<int>
     private Pedido(string usuario)
     {
         Usuario = usuario;
-        StatusPedido = StatusPedido.AguardandoProcessamento;
         DataPedido = DateTime.Now;
     }
 
@@ -67,10 +67,10 @@ public class Pedido : Entidade<int>
         QtdTotalPedido = _itensPedido.Count();
     }
 
-    public async Task AtualizarStatusPedido(StatusPedido novoStatus)
+    public async Task AtualizarStatusPedido(IStatusPedido novoStatus)
     {
-        StatusPedido = novoStatus;
-
-        await DomainEvents.Raise(new PedidoStatusTrocadoEvent(Id, novoStatus));
+        Status = novoStatus;
+        
+        await DomainEvents.Raise(new PedidoStatusChangedEvent(Id, Status));
     }
 }

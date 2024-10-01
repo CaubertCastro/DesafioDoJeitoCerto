@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Desafio.WebApp.Domain.Pedidos.EventHandlers
 {
-    public class PedidoStatusTrocadoEventHandler : INotificationHandler<PedidoStatusTrocadoEvent>
+    public class PedidoStatusTrocadoEventHandler : INotificationHandler<PedidoStatusChangedEvent>
     {
         private readonly IEmailService _emailService;
         
@@ -13,19 +13,16 @@ namespace Desafio.WebApp.Domain.Pedidos.EventHandlers
         {
             _emailService = emailService;
         }
-
-        // Refatorar para colocar validações aqui tb.
-        public async Task Handle(PedidoStatusTrocadoEvent notification, CancellationToken cancellationToken)
+        
+        public async Task Handle(PedidoStatusChangedEvent notification, CancellationToken cancellationToken)
         {
-            var novoStatus = notification.statusPedido;
-
             // Configuração do email, está mocado com qualquer coisa,
-            // mas o certo é ter um dominio de clientes onde é pego o email cadastro para envio do email.
+            // Criar dominio de clientes para cadastrar um cliente e obter o email cadastro.
             const string email = "cliente@example.com";
 
             const string subject = "Status do Pedido Atualizado";
 
-            var body = $"O status do seu pedido foi atualizado para: {novoStatus}";
+            var body = $"O status do seu pedido foi atualizado para: {notification.NovoStatus.GetType().Name}";
 
             await _emailService.SendEmailAsync(email, subject, body);
         }
